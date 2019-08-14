@@ -5,20 +5,21 @@ import cv2
 
 
 # Open the input movie file
-input_video = cv2.VideoCapture("sample_video.mp4")
+input_video = cv2.VideoCapture("corrie_street.mp4")
 length = int(input_video.get(cv2.CAP_PROP_FRAME_COUNT))
 
 # Create an output movie file (make sure resolution/frame rate matches input video!)
-fourcc = cv2.VideoWriter_fourcc('M','P','E','G')
-
-output_video = cv2.VideoWriter('output.avi',fourcc, 25.07, (1280, 720))
-#output_video = cv2.VideoWriter('output.avi', fourcc, 25.07, (1280, 720))
+codec = int(input_video.get(cv2.CAP_PROP_FOURCC))
+fps = int(input_video.get(cv2.CAP_PROP_FPS))
+frame_width = int(input_video.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(input_video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+output_video = cv2.VideoWriter('output.mp4', codec, fps, (frame_width,frame_height))
 
 # Load some sample pictures and learn how to recognize them.
-female_image = face_recognition.load_image_file("sample_image.jpeg")
+female_image = face_recognition.load_image_file("emma.jpeg")
 female_face_encoding = face_recognition.face_encodings(female_image)[0]
 
-male_image = face_recognition.load_image_file("sample_image.jpeg")
+male_image = face_recognition.load_image_file("steve.jpeg")
 male_face_encoding = face_recognition.face_encodings(male_image)[0]
 
 known_faces = [
@@ -58,9 +59,9 @@ while True:
         # but I kept it simple for the demo
         name = None
         if match[0]:
-            name = "Warina"
+            name = "emma"
         elif match[1]:
-            name = "Aayush"
+            name = "steve"
 
         face_names.append(name)
 
