@@ -16,6 +16,12 @@ face_locations = []
 face_encodings = []
 face_names = []
 frame_number = 0
+
+codec = int(input_movie.get(cv2.CAP_PROP_FOURCC))
+fps = int(input_movie.get(cv2.CAP_PROP_FPS))
+frame_width = int(input_movie.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_height = int(input_movie.get(cv2.CAP_PROP_FRAME_HEIGHT))
+output_movie = cv2.VideoWriter('output.mp4', codec, fps, (frame_width,frame_height))
 print("Set up complete!")
 
 while True:
@@ -68,5 +74,6 @@ while True:
     output_movie.write(frame)
 
 # All done!
+output_movie.write()
 input_movie.release()
 cv2.destroyAllWindows()
