@@ -1,8 +1,9 @@
 import cv2
 import face_recognition
 
+
 input_movie = cv2.VideoCapture("sample_video.mp4")
-length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
+#length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
 
 image = face_recognition.load_image_file("sample_image.jpeg")
 face_encoding = face_recognition.face_encodings(image)[0]
@@ -74,6 +75,6 @@ while True:
     output_movie.write(frame)
 
 # All done!
-output_movie.write()
+output_movie.release()
 input_movie.release()
 cv2.destroyAllWindows()
